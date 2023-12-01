@@ -84,7 +84,6 @@ def _calc_times():
 ###
 
 
-# This should send a POST request to the APT to insert
 @app.post('/submit')
 def submit():
   try:
@@ -98,8 +97,7 @@ def submit():
     return response
 
 
-# This should send a GET request and display the last entry
-# maybe rename somehow to get_latest
+
 @app.get('/display')
 def display():
   try:
@@ -124,25 +122,7 @@ def display():
     return flask.jsonify({"error": message,
                           "success": False})
 
-# I think I will need to add other buttons for the schema here too?
-# though I thought we were only changing backend...
-
-
-# GET http://API:PORT/api/brevets should display all brevets stored in the database.
-#  maybe named get_all or something? so check if an ID is in the http request, 
-#  if not, use get_all, if it does end in ID, use regular GET
-
-# GET http://API:PORT/api/brevet/ID should display brevet with id ID.
-
-# POST http://API:PORT/api/brevets should insert brevet object in request into the database.
-#  same ad before
-
-# DELETE http://API:PORT/api/brevet/ID should delete brevet with id ID.
-#  replace found brevet with None maybe. Unless this us done behind curtain.
-
-# PUT http://API:PORT/api/brevet/ID should update brevet with id ID with object in request.
-#  like update, find it object, then change it
-
+# nothing needs to change here, front end staying exactly the same 
 #############
 
 app.debug = CONFIG.DEBUG
