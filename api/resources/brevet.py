@@ -30,6 +30,7 @@ from database.models import Brevet
 # JSON for you.
 
 class Brevet(Resource):
+    # "should display brevet with id ID."
     # get a specified brevet
     def get(self, brevet_id: str):
         try:
@@ -44,6 +45,8 @@ class Brevet(Resource):
             # something went wronge, do something here
             return
         
+
+    # "should update brevet with id ID with object in request."
     # put a specified brevet (like update, replace)
     def put(self, brevet_id: str):
         try:
@@ -60,6 +63,7 @@ class Brevet(Resource):
             # something went wronge, do something here
             return
 
+    # "should delete brevet with id ID."
     # delete a specified brevet
     def delete(self, brevet_id: str):
         try:

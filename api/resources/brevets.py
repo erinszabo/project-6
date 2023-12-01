@@ -29,16 +29,16 @@ from database.models import Brevet
 # JSON for you.
 
 class Brevets(Resource):
+    #"should display all brevets stored in the database."
     def get(self):
-        """Get all brevets stored in the database."""
         try:
             return Response(Brevet.objects.to_json(), mimetype="application/json", status=200)
         except:# TODO
             # something went wronge, do something here
             return
 
+    #"should insert brevet object in request into the database."
     def post(self):
-        """Create a new brevet in the database."""
         try:
             new_doc = Brevet(**request.json).save(validate=True)
             return {"id": str(new_doc.id)}, 201
