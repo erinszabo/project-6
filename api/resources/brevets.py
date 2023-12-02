@@ -41,7 +41,7 @@ class Brevets(Resource):
     def post(self):
         try:
             new_doc = Brevet(**request.json).save(validate=True)
-            return {"id": str(new_doc.id)}, 200
+            return {"id": str(new_doc.id)}, 201
         except: # TODO
             # something went wronge, do something here
             return

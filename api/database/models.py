@@ -22,6 +22,6 @@ class Brevet(Document):
 		start_time: MongoEngine datetime field, required
 		checkpoints: MongoEngine list field of Checkpoints, required
     """
-    length = FloatField(required=True)
+    length = FloatField(required=True) # total brevet length
     start_time = DateTimeField(required=True)
     checkpoints = ListField(required=True)

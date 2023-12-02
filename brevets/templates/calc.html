@@ -180,7 +180,7 @@
                             });
                         }
                     });
-                    // if there are any controls, add them to the db
+                    // if there are any controls, add brevet to the db
                     if (controls.length !== 0) {
                         $.ajax({
                             type: "POST",
@@ -189,20 +189,21 @@
                             // for some reason I think it didn't like me defining this brevet outside of the ajax
                             
                             // need to change names since REST expects exact names
+                            // need to match models doc
                             data: JSON.stringify({
-                                length: brevet_dist,
+                                length: brevet_dist, 
                                 start_time: start_time,
                                 checkpoints: controls
                             }),
                             // On a successful response 
-                            success: function(data) { // no data before
+                            success: function(data) { 
                                 mess.text("Brevet Saved.");
                             },
                             contentType: "application/json",
                             dataType: 'json'
                         })
                         .fail(function() {
-                            mess.text("Brevet Failed to Save.");
+                            mess.text("Brevet Failed to Save...");
                             
                         });
                     } else {
