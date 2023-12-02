@@ -50,11 +50,11 @@ class Brevet(Resource):
     # put a specified brevet (like update, replace)
     def put(self, brevet_id: str):
         try:
-            Brevet(**request.json).validate()  # make sure the new document is valid before updating
+            Brevet(**request.json).validate() 
             updated_brevet = Brevet.objects.get(id=brevet_id).update(
-                __raw__={"$set": request.json}  # replace the entire document with what's in request.json
+                __raw__={"$set": request.json}  
             )
-            if updated_brevet == 1:  # one document was updated
+            if updated_brevet == 1:  
                 return {"success": True}, 200
             else: #TODO
                 # something went wronge, do something here
