@@ -5,6 +5,7 @@ import os
 from flask import Flask
 from flask_restful import Api
 from mongoengine import connect
+from flask_cors import CORS
 
 
 # You need to implement two resources: Brevet and Brevets.
@@ -22,6 +23,9 @@ connect(host="mongodb://"+mongo_db+":27017/brevetsdb")
 # Start Flask app and Api here:
 app = Flask(__name__)
 api = Api(app)
+cors = CORS(app, resources={r"/api/*": {"origins": "http://localhost:5002"}})  
+# It looks like this should connect the two resources and let them run together?
+
 ################
 
 # Bind resources to paths here:
