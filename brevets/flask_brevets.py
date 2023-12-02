@@ -8,7 +8,7 @@ import flask
 #from flask import request
 import arrow  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
-import config
+#import config
 
 import logging
 import os
