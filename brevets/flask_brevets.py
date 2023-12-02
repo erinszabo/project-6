@@ -5,29 +5,19 @@ Replacement for RUSA ACP brevet time calculator
 """
 
 import flask
-#from flask import request
 import arrow  # Replacement for datetime, based on moment.js
 import acp_times  # Brevet time calculations
-#import config
 
 import logging
 import os
 import pymongo
 
-#from pymongo import MongoClient
 
 ###
 # Globals
 ###
 
 app = flask.Flask(__name__)
-#CONFIG = config.configuration()
-#
-##os.environ['MONGODB_HOSTNAME']
-#client = pymongo.MongoClient('mongodb://db', 27017)
-#
-#db = client.brevets
-#collection = db.collection 
 
 
 ##################################################
@@ -96,50 +86,8 @@ def _calc_times():
 # The get I have here only gets the most recent, so I should have the 
 # display button call get in api/resources/brevet.py with the most recent id
 
-""" These are from project 5
-@app.post('/submit')
-def submit():
-  try:
-    collection.controls.insert_one(flask.request.json)
-    return {"success": True}
-  
-  except:
-    message = "Unknown Error"
-    response = flask.jsonify({"error": message,
-                              "success": False})
-    return response
 
-
-
-@app.get('/display')
-def display():
-  try:
-    controls = collection.controls.find_one(
-        sort=[('_id', -1)], # -1 so I get the most recent brevet 
-        projection={"_id": 0} )
-        # after lots of googling I realized the issue was that it was including the id
-        # and found in this link how to make it exclude id
-        # https://stackoverflow.com/questions/48294613/mongo-find-function-wont-exc    
-        
-    if controls is not None:
-        # this is not working, for some reason controls is not None
-        # but there are no controls submitted?
-        return controls
-    else: 
-        message = "Zero brevets have been submitted."
-        return flask.jsonify({"error": message,
-                              "success": False})
-
-  except:
-    message = "Unknown Error." # server error I think but not sure
-    return flask.jsonify({"error": message,
-                          "success": False})
-"""
 #############
-
-#app.debug = CONFIG.DEBUG
-#if app.debug:
-#    app.logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
     port = os.environ["PORT"]

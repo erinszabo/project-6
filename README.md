@@ -8,7 +8,9 @@ Brevet time calculator with MongoDB, and a RESTful API!
 
 ## Review
 
-For an understanding of the calculator itself, vist project 4 or 5.
+For an understanding of the calculator itself, vist 
+ - https://github.com/erinszabo/project-4
+ - https://github.com/erinszabo/project-5
 
 ## Overview
 This is a continuation of project 5, except...
@@ -37,14 +39,11 @@ This is a continuation of project 5, except...
 		* PUT `http://API:PORT/api/brevet/ID` should update brevet with id `ID` with object in request.
 
 * `brevets/` copied from completed project 5.
-	* Replace every database related code in `brevets/` with calls to the new API.
-		* Remember: AutoGrader will ensure there is NO CONNECTION between `brevets` and `db` services. `brevets` should only operate through `api` and still function the way it did in project 5.
-		* Hint: Submit should send a POST request to the API to insert, Display should send a GET request, and display the last entry.
-	* Remove `config.py` and adjust `flask_brevets.py` to use the `PORT` and `DEBUG` values specified in env variables (see `docker-compose.yml`).
+	* Every database related code in `brevets/` is replaced with calls to the new API.
+		
+	* Now `env.` is used exclusivly and `config.py` has been removed
 
-* Update README.md with API documentation added.
 
-As always you'll turn in your `credentials.ini` through Canvas.
 
 
 ## Authors
