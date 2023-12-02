@@ -82,8 +82,20 @@ def _calc_times():
 ###
 # Buttons
 ###
+#######
+# Replace every database related code in brevets/ with calls to the new API.
+# Remember: AutoGrader will ensure there is NO CONNECTION between brevets and db services. 
+#  brevets should only operate through api and still function the way it did in project 5.
+# Hint: Submit should send a POST request to the API to insert, Display should send a GET request, 
+#  and display the last entry.
 
+# The post in api/resources/brevets.py should replace my submit
+# pose function below. so have the button call that instead?
 
+# The get I have here only gets the most recent, so I should have the 
+# display button call get in api/resources/brevet.py with the most recent id
+
+""" These are from project 5
 @app.post('/submit')
 def submit():
   try:
@@ -121,14 +133,14 @@ def display():
     message = "Unknown Error." # server error I think but not sure
     return flask.jsonify({"error": message,
                           "success": False})
-
-# nothing needs to change here, front end staying exactly the same 
+"""
 #############
 
-app.debug = CONFIG.DEBUG
-if app.debug:
-    app.logger.setLevel(logging.DEBUG)
+#app.debug = CONFIG.DEBUG
+#if app.debug:
+#    app.logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
-    print("Opening for global access on port {}".format(CONFIG.PORT))
-    app.run(port=CONFIG.PORT, host="0.0.0.0")
+    port = os.environ["BREVETS_PORT"]
+    print("Opening for global access on port {}".format(port))
+    app.run(port=port, host="0.0.0.0")

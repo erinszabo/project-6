@@ -98,7 +98,12 @@
             <script type="text/javascript">
                 const SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
                 const TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times";
-
+                const API_ROOT = "http://localhost:5001/api/brevets";
+                //const API = SCRIPT_ROOT + "/api/brevets";
+                //console.log("SCRIPT_ROOT = "+SCRIPT_ROOT);
+                //const API = "http://localhost:" + os.environ[API_PORT] + "/api/brevets"
+                // ^ I dont think this will work because I dont have os here   
+                
                 function reset(control) {
                     control.find("input[name='km']").val("");
                     control.find("input[name='miles']").val("");
@@ -169,15 +174,16 @@
                     if (controls.length !== 0) {
                         $.ajax({
                             type: "POST",
-                            url: "/submit", // it seemed like the saved constant wasn't working so I hardcoded it here
+                            url: API_ROOT, // use api here instead of db directly
+                            //url: "/submit", // it seemed like the saved constant wasn't working so I hardcoded it here
                             // for some reason I think it didn't like me defining this brevet outside of the ajax
                             data: JSON.stringify({
                                 brevet_dist: brevet_dist,
                                 start_time: start_time,
                                 controls: controls
                             }),
-                            // On a successful response from flask:
-                            success: function() { 
+                            // On a successful response 
+                            success: function(data) { // no data before
                                 mess.text("Brevet Saved.");
                             },
                             contentType: "application/json",
@@ -196,26 +202,34 @@
                 // complete and funtional
                 function display_brevet() {
                     let mess = $("#message");
-                    $.getJSON("/display")
-                        .done(function(data) {
-                            $("select[name='distance']").val(data.brevet_dist);
-                            $("input[name='begin_date']").val(moment(data.start_time).format("YYYY-MM-DDTHH:mm"));
+                    //$.getJSON("/display") // use API here instead of db directly
+                    $.getJSON(API_ROOT) // API
+                        .done(function(data) {   // since the get in brevets gives all brevets...
+                            if (data.length === 0 ) {
+                                // then there are no brevets saved
+                                mess.text("There are no saved brevets to display.")
+                            } else{ // display most recent
+                                most_recent = data[data.length - 1];
+                                $("select[name='distance']").val(most_recent.brevet_dist);
+                                $("input[name='begin_date']").val(moment(most_recent.start_time).format("YYYY-MM-DDTHH:mm"));
 
-                            // this is more readable to me than comparing to index
-                            var displayed_controls = 0;
-                            $(".control_time_table .control").each(function() {
-                                // if we have displayed all controls, we are done
-                                if (displayed_controls >= data.controls.length) {
-                                    return false;  
-                                }
-                                // otherwise
-                                var curr_control = data.controls[displayed_controls];
-                                var km_dist = Object.keys(curr_control)[0];
-                                var location = Object.values(curr_control)[0];
-                                $(this).find("input[name='km']").val(km_dist).change(); 
-                                $(this).find("input[name='location']").val(location);   
-                                displayed_controls++;
-                            });
+                                // this is more readable to me than comparing to index
+                                var displayed_controls = 0;
+                                $(".control_time_table .control").each(function() {
+                                    // if we have displayed all controls, we are done
+                                    if (displayed_controls >= most_recent.controls.length) {
+                                        return false;  
+                                    }
+                                    // otherwise
+                                    var curr_control = most_recent.controls[displayed_controls];
+                                    var km_dist = Object.keys(curr_control)[0];
+                                    var location = Object.values(curr_control)[0];
+                                    $(this).find("input[name='km']").val(km_dist).change(); 
+                                    $(this).find("input[name='location']").val(location);   
+                                    displayed_controls++;
+                                
+                                });
+                            }
                             // maybe rephrase this
                             mess.text("Most recently submitted brevet:");  
                         })
