@@ -15,7 +15,9 @@ from resources.brevets import Brevets
 
 
 # Connect MongoEngine to mongodb
-connect(host=f"mongodb://{os.environ['MONGODB_HOSTNAME']}:27017/brevetsdb")
+mongo_db = os.environ['MONGODB_HOSTNAME']
+connect(host="mongodb://"+mongo_db+":27017/brevetsdb")
+#{os.environ['MONGODB_HOSTNAME']}
 
 # Start Flask app and Api here:
 app = Flask(__name__)
@@ -33,7 +35,7 @@ api.add_resource(Brevets, "/api/brevets")
 if __name__ == "__main__":
     # Run flask app normally
     # Read DEBUG and PORT from environment variables.
-    port = os.environ['API_PORT']
+    port = os.environ['PORT']
 
     # TODO Im not confident in this commented part, but if it works, include it
     #debug = os.environ['DEBUG']

@@ -21,12 +21,13 @@ import pymongo
 ###
 
 app = flask.Flask(__name__)
-CONFIG = config.configuration()
-
-client = pymongo.MongoClient('mongodb://' + os.environ['MONGODB_HOSTNAME'], 27017)
-
-db = client.brevets
-collection = db.collection 
+#CONFIG = config.configuration()
+#
+##os.environ['MONGODB_HOSTNAME']
+#client = pymongo.MongoClient('mongodb://db', 27017)
+#
+#db = client.brevets
+#collection = db.collection 
 
 
 ##################################################
@@ -141,6 +142,6 @@ def display():
 #    app.logger.setLevel(logging.DEBUG)
 
 if __name__ == "__main__":
-    port = os.environ["BREVETS_PORT"]
+    port = os.environ["PORT"]
     print("Opening for global access on port {}".format(port))
     app.run(port=port, host="0.0.0.0")
