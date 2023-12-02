@@ -98,7 +98,7 @@
             <script type="text/javascript">
                 const SCRIPT_ROOT = {{ request.script_root|tojson|safe }} ;
                 const TIME_CALC_URL = SCRIPT_ROOT + "/_calc_times";
-                const API_ROOT = "http://localhost:5001/api/brevets";
+                //const API_ROOT = "http://localhost:5001/api/brevets";
                 //const API = SCRIPT_ROOT + "/api/brevets";
                 //console.log("SCRIPT_ROOT = "+SCRIPT_ROOT);
                 //const API = "http://localhost:" + os.environ[API_PORT] + "/api/brevets"
@@ -174,7 +174,7 @@
                     if (controls.length !== 0) {
                         $.ajax({
                             type: "POST",
-                            url: API_ROOT, // use api here instead of db directly
+                            url: "http://localhost:5001/api/brevets", // use api here instead of db directly
                             //url: "/submit", // it seemed like the saved constant wasn't working so I hardcoded it here
                             // for some reason I think it didn't like me defining this brevet outside of the ajax
                             data: JSON.stringify({
@@ -203,7 +203,9 @@
                 function display_brevet() {
                     let mess = $("#message");
                     //$.getJSON("/display") // use API here instead of db directly
-                    $.getJSON(API_ROOT) // API
+                    // maybe ".../api/brevet/ID" but I wouldn't have the id yet
+                    // or "/api/brevet/<string:brevet_id>"
+                    $.getJSON("http://localhost:5001/api/brevets") // API
                         .done(function(data) {   // since the get in brevets gives all brevets...
                             if (data.length === 0 ) {
                                 // then there are no brevets saved
